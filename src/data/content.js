@@ -116,20 +116,20 @@ export const workflowRTK = {
   steps: [
     {
       title: 'Prepara el equipo',
-      body: 'Batería cargada (carga completa en ~2 h con cargador de 45 W), memoria libre y el celular/colector con la app Satsurv conectado por Wi-Fi o Bluetooth al SL9.',
+      body: 'Batería cargada (carga completa en ~2 h con cargador de 45 W), memoria libre y el celular/colector con la app Hi-Survey conectado por Wi-Fi o Bluetooth al SL9.',
       image: null,
     },
     {
       title: 'Conecta las correcciones RTK',
-      body: 'En Satsurv, configura la conexión a tu red de correcciones (NTRIP con tu usuario y mountpoint, o radio UHF si trabajas con base propia). Espera a que el estado diga FIJO (FIX).',
+      body: 'En Hi-Survey, configura la conexión a tu red de correcciones (NTRIP con tu usuario y mountpoint, o radio UHF si trabajas con base propia). Espera a que el estado diga FIJO (FIX).',
       tip: '💡 "FIJO" = precisión centimétrica. "FLOTANTE" = todavía no; espera unos segundos en un lugar con cielo despejado.',
       image: null,
     },
     {
       title: 'Inicia el proyecto de escaneo',
-      body: 'Crea un proyecto nuevo en Satsurv, elige el sistema de coordenadas de tu país/proyecto y arranca el modo escaneo SLAM. Comienza en un punto al aire libre con FIX para anclar todo a coordenadas reales.',
+      body: 'Crea un proyecto nuevo en Hi-Survey, elige el sistema de coordenadas de tu país/proyecto y arranca el modo escaneo SLAM. Comienza en un punto al aire libre con FIX para anclar todo a coordenadas reales.',
       image: '/img/software-satsurv.jpg',
-      imageAlt: 'Capturas de la app Satsurv mostrando configuración de proyecto',
+      imageAlt: 'Capturas de la app Hi-Survey mostrando configuración de proyecto',
     },
     {
       title: 'Camina y escanea',
@@ -140,7 +140,7 @@ export const workflowRTK = {
     },
     {
       title: 'Cierra y revisa en el momento',
-      body: 'Detén el escaneo en Satsurv y revisa la nube en la pantalla con el mapa de calor de precisión. ¿Zonas con huecos o color de baja calidad? Escanéalas de nuevo antes de irte del sitio.',
+      body: 'Detén el escaneo en Hi-Survey y revisa la nube en la pantalla con el mapa de calor de precisión. ¿Zonas con huecos o color de baja calidad? Escanéalas de nuevo antes de irte del sitio.',
       image: '/img/slam-fix-puente.jpg',
       imageAlt: 'Escaneo bajo un puente demostrando SLAM-Fix cuando se pierde señal satelital',
     },
@@ -161,7 +161,7 @@ export const workflowSLAM = {
   steps: [
     {
       title: 'Prepara el equipo',
-      body: 'Igual que antes: batería, memoria y Satsurv conectado. Ojo: en modo SLAM la batería interna dura menos (hasta ~2 h; con batería externa, hasta ~5 h). Lleva repuesto: el SL9 permite cambio en caliente sin apagar.',
+      body: 'Igual que antes: batería, memoria y Hi-Survey conectado. Ojo: en modo SLAM la batería interna dura menos (hasta ~2 h; con batería externa, hasta ~5 h). Lleva repuesto: el SL9 permite cambio en caliente sin apagar.',
       image: null,
     },
     {
@@ -184,7 +184,7 @@ export const workflowSLAM = {
     },
     {
       title: 'Revisa y exporta',
-      body: 'Detén el escaneo, revisa la nube en Satsurv y exporta. La nube estará en coordenadas locales (metros desde tu punto de arranque), perfectas para modelar geometría en Rhino.',
+      body: 'Detén el escaneo, revisa la nube en Hi-Survey y exporta. La nube estará en coordenadas locales (metros desde tu punto de arranque), perfectas para modelar geometría en Rhino.',
       image: null,
     },
   ],
@@ -197,7 +197,7 @@ export const rhinoFlow = {
   pipeline: [
     {
       mono: 'Campo',
-      title: 'SL9 + Satsurv',
+      title: 'SL9 + Hi-Survey',
       body: 'Escaneas y exportas la nube cruda del equipo.',
     },
     {
@@ -298,9 +298,9 @@ export const checklist = {
   items: [
     'Batería interna cargada + batería externa de repuesto (SLAM consume más)',
     'Memoria libre suficiente en el equipo (512 GB internos, pero revisa)',
-    'Satsurv actualizado y conectado al SL9',
+    'Hi-Survey actualizado y conectado al SL9',
     'Si usarás RTK: credenciales NTRIP a mano y SIM con datos (o radio UHF configurada)',
-    'Sistema de coordenadas del proyecto elegido en Satsurv',
+    'Sistema de coordenadas del proyecto elegido en Hi-Survey',
     'Plan de recorrido: por dónde empiezo, por dónde termino, pasadas con traslape',
     'Al terminar: revisar la nube EN SITIO antes de guardar el equipo',
     'En oficina: procesar en Sat-LiDAR → limpiar → exportar E57/PTS → importar en Rhino en metros',

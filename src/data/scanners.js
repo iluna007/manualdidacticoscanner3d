@@ -4,8 +4,17 @@ export const scanners = {
     nombre: 'SatLab SL9 SLAM RTK',
     tipo: 'SLAM portátil + RTK',
     lineas: ['rtk', 'slam'],
-    softwareCampo: 'Satsurv',
+    softwareCampo: 'Hi-Survey',
     softwareOficina: 'Sat-LiDAR',
+    manual: {
+      version: 'V1.0',
+      fecha: 'May 2025',
+      fabricante: 'SatLab GEOSOLUTIONS AB',
+    },
+    conexion: {
+      wifiPasswordDefault: '12345678',
+      metodosRecomendados: ['Wi-Fi', 'Bluetooth', 'NFC'],
+    },
     specs: {
       alcance: '70 m',
       tasa: '200,000 pts/s',

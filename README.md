@@ -102,6 +102,6 @@ Ver también: [GitHub Topics · isbn](https://github.com/topics/isbn)
 
 ## Equipo documentado
 
-**SatLab SL9 SLAM RTK** — software de campo Satsurv · procesamiento Sat-LiDAR · flujo alternativo CloudCompare · modelado Rhino.
+**SatLab SL9 SLAM RTK** — software de campo Hi-Survey · procesamiento Sat-LiDAR · flujo alternativo CloudCompare · modelado Rhino.
 
 Las precisiones y especificaciones citadas dependen de las condiciones reales de operación en sitio.

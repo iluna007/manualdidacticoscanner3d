@@ -3,11 +3,13 @@ import { scanners } from '../data/scanners'
 import { useRoute } from '../context/RouteContext'
 import MetroMap from './MetroMap'
 import MetroLegend from './MetroLegend'
+import GuiaPdfViewer from './GuiaPdfViewer'
 
 export default function HeroMapSection({ activeStation, onStationClick, mapDrawn }) {
   const { scannerId } = useRoute()
   const scanner = scanners[scannerId]
   const [highlightLinea, setHighlightLinea] = useState(null)
+  const [pdfOpen, setPdfOpen] = useState(false)
 
   return (
     <section className="hero-map-section" id="hero">
@@ -22,7 +24,8 @@ export default function HeroMapSection({ activeStation, onStationClick, mapDrawn
             </div>
             <p className="hero-map__sub">
               Escaneá con el {scanner.nombre}, procesá la nube y modelá en Rhino. El mapa de abajo
-              es tu guía: cada paso representa una etapa del flujo completo.
+              es tu guía didáctica; el manual oficial del fabricante ({scanner.softwareCampo}) está
+              a un clic en la imagen.
             </p>
             <div className="badges hero-map__badges">
               <span className="badge o">RTK + SLAM</span>
@@ -30,13 +33,21 @@ export default function HeroMapSection({ activeStation, onStationClick, mapDrawn
               <span className="badge">Alcance {scanner.specs.alcance}</span>
             </div>
           </div>
-          <div className="hero-map__thumb">
+          <button
+            type="button"
+            className="hero-map__thumb"
+            aria-label="Abrir GUIA DIDACTICA PARA SCANEAR UN ESPACIO en PDF"
+            onClick={() => setPdfOpen(true)}
+          >
             <img
               src={scanner.imagenes.hero}
               alt="Equipo SL9 SLAM RTK"
               loading="eager"
             />
-          </div>
+            <span className="hero-map__thumb-hint" aria-hidden="true">
+              Manual SL9
+            </span>
+          </button>
         </div>
 
         <div className="hero-map__network" id="mapa">
@@ -67,6 +78,8 @@ export default function HeroMapSection({ activeStation, onStationClick, mapDrawn
           />
         </div>
       </div>
+
+      <GuiaPdfViewer open={pdfOpen} onClose={() => setPdfOpen(false)} />
     </section>
   )
 }

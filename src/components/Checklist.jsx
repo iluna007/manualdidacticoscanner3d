@@ -3,9 +3,9 @@ import { useState } from 'react'
 const ITEMS = [
   'Batería interna cargada + batería externa de repuesto (SLAM consume más)',
   'Memoria libre suficiente en el equipo (512 GB internos, pero revisá)',
-  'Satsurv actualizado y conectado al SL9',
+  'Hi-Survey actualizado y conectado al SL9',
   'Si usarás RTK: credenciales NTRIP a mano y SIM con datos (o radio UHF configurada)',
-  'Sistema de coordenadas del proyecto elegido en Satsurv',
+  'Sistema de coordenadas del proyecto elegido en Hi-Survey',
   'Plan de recorrido: por dónde empiezo, por dónde termino, pasadas con traslape',
   '¿Definí mi ruta en el mapa? (RTK/SLAM y Sat-LiDAR/CloudCompare)',
   'Al terminar: revisar la nube EN SITIO antes de guardar el equipo',

@@ -215,11 +215,30 @@ h4 {
 }
 
 .hero-map__thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
   border-radius: var(--radius);
   overflow: hidden;
   border: 1px solid var(--linea);
   aspect-ratio: 4 / 5;
   max-height: 260px;
+  cursor: pointer;
+  background: var(--blanco);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.hero-map__thumb:hover,
+.hero-map__thumb:focus-visible {
+  border-color: var(--line-active);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.hero-map__thumb:focus-visible {
+  outline: 2px solid var(--line-active);
+  outline-offset: 2px;
 }
 
 .hero-map__thumb img {
@@ -228,6 +247,28 @@ h4 {
   object-fit: cover;
   display: block;
   filter: grayscale(100%);
+  transition: filter 0.2s ease;
+}
+
+.hero-map__thumb:hover img,
+.hero-map__thumb:focus-visible img {
+  filter: grayscale(40%);
+}
+
+.hero-map__thumb-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px 12px;
+  font-family: 'Archivo', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #fff;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.72));
 }
 
 .hero-map__network {
@@ -1746,6 +1787,158 @@ footer {
   justify-content: center;
   padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
   overflow-y: auto;
+}
+
+.guia-pdf-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: rgba(245, 245, 245, 0.97);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom));
+}
+
+.guia-pdf-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  font-size: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  color: var(--tinta);
+}
+
+.guia-pdf-panel {
+  width: min(1100px, 100%);
+  height: min(92vh, 900px);
+  display: flex;
+  flex-direction: column;
+  background: var(--blanco);
+  border: 1px solid var(--linea);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
+  overflow: hidden;
+}
+
+.guia-pdf-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--linea);
+  background: var(--hero-map-surface);
+}
+
+.guia-pdf-title {
+  margin: 0;
+  font-family: 'Archivo', sans-serif;
+  font-size: clamp(14px, 2.2vw, 18px);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  max-width: 28ch;
+}
+
+.guia-pdf-header-text {
+  min-width: 0;
+}
+
+.guia-pdf-subtitle {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--gris);
+  line-height: 1.4;
+}
+
+.guia-pdf-unavailable {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 32px 24px;
+  text-align: center;
+  color: var(--tinta);
+}
+
+.guia-pdf-unavailable p {
+  margin: 0;
+  max-width: 42ch;
+  line-height: 1.6;
+  font-size: 14px;
+}
+
+.guia-pdf-lang {
+  display: flex;
+  gap: 8px;
+}
+
+.guia-pdf-lang-btn {
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--linea);
+  background: var(--blanco);
+  color: var(--tinta);
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.guia-pdf-lang-btn--active,
+.guia-pdf-lang-btn:hover,
+.guia-pdf-lang-btn:focus-visible {
+  border-color: var(--line-active);
+  color: var(--line-active);
+}
+
+.guia-pdf-lang-btn--active {
+  background: var(--acento-suave);
+}
+
+.guia-pdf-frame-wrap {
+  flex: 1;
+  min-height: 0;
+  background: #ececec;
+}
+
+.guia-pdf-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.guia-pdf-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  padding: 12px 20px;
+  border-top: 1px solid var(--linea);
+  background: var(--blanco);
+}
+
+.guia-pdf-action {
+  font-family: 'Archivo', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--line-active);
+  text-decoration: none;
+}
+
+.guia-pdf-action:hover,
+.guia-pdf-action:focus-visible {
+  text-decoration: underline;
 }
 
 .metro-minimap-close {
