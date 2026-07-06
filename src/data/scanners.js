@@ -28,7 +28,7 @@ export const scanners = {
   },
 }
 
-/** Paleta monocromática — cada línea usa un gris distinto para legibilidad */
+/** Paleta monocromática — cada flujo usa un gris distinto para legibilidad */
 export const LINE_COLORS = {
   rtk: '#1a1a1a',
   slam: '#3d3d3d',
@@ -39,12 +39,12 @@ export const LINE_COLORS = {
 }
 
 export const LINE_LABELS = {
-  rtk: 'Línea A · RTK (campo)',
-  slam: 'Línea B · SLAM (campo)',
-  satlidar: 'Línea C · Sat-LiDAR (oficina)',
-  cloudcompare: 'Línea D · CloudCompare (oficina)',
-  shared: 'Andén · Rhino',
-  transbordo: 'Transbordo ◉',
+  rtk: 'Flujo A · RTK (campo)',
+  slam: 'Flujo B · SLAM (campo)',
+  satlidar: 'Flujo C · Sat-LiDAR (oficina)',
+  cloudcompare: 'Flujo D · CloudCompare (oficina)',
+  shared: 'Flujo final · Rhino',
+  transbordo: 'Bifurcación ◉',
 }
 
 export const LINE_DASH = {
@@ -63,4 +63,34 @@ export const LINE_WEIGHT = {
   cloudcompare: 0.88,
   shared: 1.2,
   transbordo: 1,
+}
+
+/** Grosor unificado: barra de progreso, leyenda y mapas */
+export const LINE_STROKE = {
+  segment: 6.5,
+  casing: 10,
+  shared: 8,
+}
+
+export const LEGEND_SWATCH = {
+  normal: 4,
+  thick: 5,
+}
+
+export function connectionMatchesHighlight(conn, linea) {
+  if (!linea) return true
+  if (linea === 'transbordo') {
+    return conn.from === 'T-01' || conn.to === 'T-01' || conn.from === 'T-02' || conn.to === 'T-02'
+  }
+  return conn.linea === linea
+}
+
+export function stationMatchesHighlight(est, linea, connections) {
+  if (!linea) return true
+  if (linea === 'transbordo') return est.tipo === 'transbordo'
+  return connections.some(
+    (c) =>
+      connectionMatchesHighlight(c, linea) &&
+      (c.from === est.codigo || c.to === est.codigo),
+  )
 }

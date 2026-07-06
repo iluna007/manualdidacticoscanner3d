@@ -9,7 +9,7 @@ import {
   getStationContext,
   getContextViewBox,
 } from '../data/estaciones'
-import { LINE_DASH, LINE_WEIGHT } from '../data/scanners'
+import { LINE_DASH, LINE_STROKE, connectionMatchesHighlight, stationMatchesHighlight } from '../data/scanners'
 import { useRoute } from '../context/RouteContext'
 import { useIsMobile } from '../hooks/useMediaQuery'
 
@@ -32,8 +32,8 @@ export default function MetroMap({
   estacionActiva,
   onStationClick,
   compact = false,
-  featured = false,
   contextStation = null,
+  highlightLinea = null,
   animateDraw = false,
   className = '',
 }) {
@@ -92,27 +92,24 @@ export default function MetroMap({
     return positions[est?.codigo] ?? positions['V-01']
   }, [focusCode, positions])
 
-  const strokeW = featured ? 11 : compact ? 5 : isContext ? 7 : layoutMobile ? 8 : 10
-  const casingW = strokeW + (compact ? 4 : isContext ? 5 : 7)
-  const sharedStrokeW = featured ? 14 : strokeW + 2
-  const inactiveOpacity = featured ? 0.4 : 0.12
-
-  const lineWidth = (linea) => {
-    const scale = LINE_WEIGHT[linea] ?? 1
-    const base = linea === 'shared' ? sharedStrokeW : strokeW
-    return base * scale
+  const inactiveOpacity = 0.12
+  const segmentStroke = (linea) => (linea === 'shared' ? LINE_STROKE.shared : LINE_STROKE.segment)
+  const nodeR = (transfer) => {
+    if (compact) return transfer ? 8 : 5
+    if (isContext) return transfer ? 10 : 7
+    return transfer ? 12 : 9
   }
 
   return (
     <svg
-      className={`metro-map ${compact ? 'metro-map--compact' : ''} ${layoutMobile ? 'metro-map--mobile' : ''} ${featured ? 'metro-map--featured' : ''} ${isContext ? 'metro-map--context' : ''} ${className}`}
+      className={`metro-map ${compact ? 'metro-map--compact' : ''} ${layoutMobile ? 'metro-map--mobile' : ''} ${isContext ? 'metro-map--context' : ''} ${highlightLinea ? 'metro-map--highlighting' : ''} ${className}`}
       viewBox={`${viewBox.x} ${viewBox.y} ${viewBox.width} ${viewBox.height}`}
       preserveAspectRatio="xMidYMid meet"
       role="img"
       aria-label={
         isContext
-          ? `Tramo del mapa alrededor de ${contextStation}`
-          : 'Mapa de metro del flujo de escaneo 3D'
+          ? `Tramo del flujo alrededor de ${contextStation}`
+          : 'Mapa de flujos de escaneo 3D'
       }
     >
       <defs>
@@ -149,8 +146,8 @@ export default function MetroMap({
 
       {layoutMobile && !compact && !isContext && (
         <>
-          <text x={100} y={28} textAnchor="middle" className="metro-line-title">RTK · Línea A</text>
-          <text x={300} y={28} textAnchor="middle" className="metro-line-title">SLAM · Línea B</text>
+          <text x={100} y={28} textAnchor="middle" className="metro-line-title">RTK · Flujo A</text>
+          <text x={300} y={28} textAnchor="middle" className="metro-line-title">SLAM · Flujo B</text>
         </>
       )}
 
@@ -160,32 +157,41 @@ export default function MetroMap({
         const d = getPathD(conn.from, conn.to, layoutMobile)
         const completed = !isContext && isConnCompleted(conn) && routeActive
         const dash = LINE_DASH[conn.linea]
-        const w = lineWidth(conn.linea)
-        const groupOpacity = isContext ? 1 : routeActive ? 1 : inactiveOpacity
+        const segmentW = segmentStroke(conn.linea)
+        const isLineHighlighted =
+          !highlightLinea || connectionMatchesHighlight(conn, highlightLinea)
+        let groupOpacity
+        if (highlightLinea) {
+          groupOpacity = isLineHighlighted ? 1 : 0.1
+        } else {
+          groupOpacity = isContext ? 1 : routeActive ? 1 : inactiveOpacity
+        }
 
         return (
           <g
             key={key}
             opacity={groupOpacity}
-            className={`metro-line-group metro-line-group--${conn.linea}`}
+            className={`metro-line-group metro-line-group--${conn.linea} ${isLineHighlighted && highlightLinea ? 'metro-line-group--highlighted' : ''}`}
           >
             <path
               d={d}
               fill="none"
               stroke="var(--metro-casing)"
-              strokeWidth={w + (isContext ? 5 : compact ? 3 : 6)}
+              strokeWidth={LINE_STROKE.casing}
               strokeLinecap="round"
               strokeLinejoin="round"
+              vectorEffect="nonScalingStroke"
             />
             <path
               d={d}
               fill="none"
               stroke={completed ? 'var(--line-active)' : lineVar(conn.linea)}
-              strokeWidth={w}
+              strokeWidth={segmentW}
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeDasharray={completed ? 'none' : dash || 'none'}
               opacity={completed ? 1 : isContext ? 1 : 0.92}
+              vectorEffect="nonScalingStroke"
               className={animateDraw && !isContext ? 'metro-line-draw' : ''}
               style={animateDraw && !isContext ? { animationDelay: `${i * 0.1}s` } : undefined}
             />
@@ -202,29 +208,23 @@ export default function MetroMap({
         const isPast = !isContext && getEstacionIndex(est.codigo) < activeIndex
         const isTransfer = est.tipo === 'transbordo'
         const isTerminal = est.tipo === 'terminal'
-        const r = isTransfer
-          ? compact
-            ? 8
-            : isContext
-              ? 10
-              : featured
-                ? 14
-                : 12
-          : compact
-            ? 5
-            : isContext
-              ? 7
-              : featured
-                ? 10
-                : 9
+        const r = nodeR(isTransfer)
         const lbl = labelOffset(est, layoutMobile)
+        const isStationHighlighted =
+          !highlightLinea || stationMatchesHighlight(est, highlightLinea, visibleConnections)
+        let stationOpacity
+        if (highlightLinea) {
+          stationOpacity = isStationHighlighted ? 1 : 0.12
+        } else {
+          stationOpacity = routeActive ? 1 : isContext ? 1 : 0.2
+        }
 
         if (isTerminal) {
           return (
             <g
               key={est.codigo}
               className={`metro-station ${isCurrent ? 'current' : ''}`}
-              opacity={routeActive ? 1 : isContext ? 1 : 0.2}
+              opacity={stationOpacity}
               role="link"
               tabIndex={onStationClick ? 0 : undefined}
               aria-label={`${est.codigo} ${est.nombre}`}
@@ -232,10 +232,10 @@ export default function MetroMap({
               onKeyDown={(e) => e.key === 'Enter' && onStationClick?.(est.codigo)}
             >
               <rect
-                x={x - (compact ? 18 : isContext ? 28 : featured ? 36 : 32)}
-                y={y - (compact ? 8 : isContext ? 12 : featured ? 16 : 14)}
-                width={compact ? 36 : isContext ? 56 : featured ? 72 : 64}
-                height={compact ? 16 : isContext ? 24 : featured ? 32 : 28}
+                x={x - (compact ? 18 : isContext ? 28 : 32)}
+                y={y - (compact ? 8 : isContext ? 12 : 14)}
+                width={compact ? 36 : isContext ? 56 : 64}
+                height={compact ? 16 : isContext ? 24 : 28}
                 rx={4}
                 fill={isCurrent ? 'var(--line-active)' : 'var(--metro-station-fill)'}
                 stroke={isCurrent ? 'var(--line-active)' : lineVar(est.linea)}
@@ -260,7 +260,7 @@ export default function MetroMap({
           <g
             key={est.codigo}
             className={`metro-station ${isCurrent ? 'current' : ''} ${isPast ? 'past' : ''}`}
-            opacity={routeActive ? 1 : isContext ? 1 : 0.2}
+            opacity={stationOpacity}
             role={onStationClick ? 'link' : undefined}
             tabIndex={onStationClick ? 0 : undefined}
             aria-label={`${est.codigo} ${est.nombre}: ${est.resumen}`}
@@ -345,16 +345,16 @@ export default function MetroMap({
           filter={compact ? undefined : 'url(#metro-glow)'}
         >
           <rect
-            x={-(compact ? 4 : featured ? 7 : 6)}
-            y={-(compact ? 3 : featured ? 5 : 4)}
-            width={compact ? 8 : featured ? 14 : 12}
-            height={compact ? 6 : featured ? 10 : 8}
+            x={-(compact ? 4 : 6)}
+            y={-(compact ? 3 : 4)}
+            width={compact ? 8 : 12}
+            height={compact ? 6 : 8}
             rx={2}
             fill="var(--line-active)"
           />
           <circle
             cx={0}
-            cy={compact ? 5 : featured ? 8 : 7}
+            cy={compact ? 5 : 7}
             r={compact ? 1.5 : 2}
             fill="var(--line-active)"
             opacity={0.45}

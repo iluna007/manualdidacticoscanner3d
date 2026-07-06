@@ -1,9 +1,9 @@
 import { useRoute } from '../context/RouteContext'
 
 const LOCATIONS = [
-  { id: 'exterior', label: 'Exterior', desc: 'Línea A · RTK' },
-  { id: 'interior', label: 'Interior', desc: 'Línea B · SLAM' },
-  { id: 'ambos', label: 'Ambos', desc: 'Las dos líneas' },
+  { id: 'exterior', label: 'Exterior', desc: 'Flujo A · RTK' },
+  { id: 'interior', label: 'Interior', desc: 'Flujo B · SLAM' },
+  { id: 'ambos', label: 'Ambos', desc: 'Los dos flujos' },
 ]
 
 const PROCESSING = [
@@ -18,10 +18,10 @@ export default function PlanificarViaje({ id = 'planificar' }) {
   return (
     <section id={id} className="planificar">
       <div className="wrap">
-        <div className="kicker">Planificá tu viaje</div>
-        <h2>¿Por dónde vas a viajar en el mapa?</h2>
+        <div className="kicker">Planificá tu flujo</div>
+        <h2>¿Qué flujo vas a seguir?</h2>
         <p className="lead">
-          Como una app de tránsito: elegí tu ruta y el mapa ilumina solo los tramos que te
+          Elegí tu combinación de captura y procesamiento; el mapa resalta solo los pasos que te
           corresponden.
         </p>
 

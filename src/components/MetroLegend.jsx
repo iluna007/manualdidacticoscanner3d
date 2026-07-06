@@ -1,4 +1,4 @@
-import { LINE_LABELS } from '../data/scanners'
+import { LINE_LABELS, LEGEND_SWATCH } from '../data/scanners'
 
 const LEGEND_ITEMS = [
   {
@@ -33,9 +33,11 @@ const LEGEND_ITEMS = [
   },
 ]
 
-function Swatch({ linea, style }) {
+function Swatch({ linea, style, active }) {
+  const strokeW = style === 'solid-thick' ? LEGEND_SWATCH.thick : LEGEND_SWATCH.normal
+
   return (
-    <svg className="legend-swatch" viewBox="0 0 48 12" aria-hidden="true">
+    <svg className={`legend-swatch ${active ? 'legend-swatch--active' : ''}`} viewBox="0 0 48 12" aria-hidden="true">
       {style === 'transfer' ? (
         <>
           <circle cx={24} cy={6} r={5} fill="var(--blanco)" stroke="var(--line-transbordo)" strokeWidth={3} />
@@ -48,7 +50,7 @@ function Swatch({ linea, style }) {
           x2={46}
           y2={6}
           stroke={`var(--line-${linea})`}
-          strokeWidth={style === 'solid-thick' ? 5 : 4}
+          strokeWidth={strokeW}
           strokeLinecap="round"
           strokeDasharray={
             style === 'dashed'
@@ -67,18 +69,34 @@ function Swatch({ linea, style }) {
   )
 }
 
-export default function MetroLegend({ compact = false }) {
+export default function MetroLegend({
+  compact = false,
+  highlightLinea = null,
+  onHighlightLinea,
+}) {
   return (
-    <div className={`metro-legend ${compact ? 'metro-legend--compact' : ''}`} role="list" aria-label="Leyenda de líneas del flujo">
-      {LEGEND_ITEMS.map((item) => (
-        <div key={item.linea} className="metro-legend__item" role="listitem">
-          <Swatch linea={item.linea} style={item.style} />
-          <div className="metro-legend__text">
-            <span className="metro-legend__label mono">{LINE_LABELS[item.linea]}</span>
-            {!compact && <span className="metro-legend__desc">{item.desc}</span>}
+    <div className={`metro-legend ${compact ? 'metro-legend--compact' : ''}`} role="list" aria-label="Leyenda de flujos">
+      {LEGEND_ITEMS.map((item) => {
+        const active = highlightLinea === item.linea
+        return (
+          <div
+            key={item.linea}
+            className={`metro-legend__item ${active ? 'metro-legend__item--active' : ''}`}
+            role="listitem"
+            onMouseEnter={() => onHighlightLinea?.(item.linea)}
+            onMouseLeave={() => onHighlightLinea?.(null)}
+            onFocus={() => onHighlightLinea?.(item.linea)}
+            onBlur={() => onHighlightLinea?.(null)}
+            tabIndex={onHighlightLinea ? 0 : undefined}
+          >
+            <Swatch linea={item.linea} style={item.style} active={active} />
+            <div className="metro-legend__text">
+              <span className="metro-legend__label mono">{LINE_LABELS[item.linea]}</span>
+              {!compact && <span className="metro-legend__desc">{item.desc}</span>}
+            </div>
           </div>
-        </div>
-      ))}
+        )
+      })}
     </div>
   )
 }

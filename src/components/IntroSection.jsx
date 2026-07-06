@@ -13,9 +13,9 @@ export default function IntroSection() {
     <section id="como-funciona" className="intro-section">
       <div className="wrap">
         <div className="kicker">¿Cómo funciona?</div>
-        <h2>Tres ideas antes de subir al tren</h2>
+        <h2>Tres ideas antes de iniciar el flujo</h2>
         <p className="lead">
-          El {scanner.nombre} es dos instrumentos en uno. Estas tres tarjetas son las estaciones
+          El {scanner.nombre} es dos instrumentos en uno. Estas tres tarjetas son los pasos
           conceptuales de partida.
         </p>
 

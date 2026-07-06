@@ -1,12 +1,15 @@
 import { useMemo } from 'react'
 import { estaciones, getEstacionIndex, getEstacionByCodigo, conexiones } from '../data/estaciones'
-import { LINE_DASH } from '../data/scanners'
+import { LINE_DASH, LINE_STROKE } from '../data/scanners'
 import { useRoute } from '../context/RouteContext'
 
 const WIDTH = 1000
-const HEIGHT = 16
-const PAD = 10
+const HEIGHT = 32
+const PAD = 12
 const Y = HEIGHT / 2
+const CASING_W = LINE_STROKE.casing
+const SEGMENT_W = LINE_STROKE.segment
+const SHARED_W = LINE_STROKE.shared
 
 function stationX(index, total) {
   if (total <= 1) return WIDTH / 2
@@ -15,6 +18,15 @@ function stationX(index, total) {
 
 function lineVar(linea) {
   return `var(--line-${linea})`
+}
+
+function dashForLine(linea, scale = 1) {
+  const dash = LINE_DASH[linea]
+  if (!dash) return undefined
+  return dash
+    .split(/[\s,]+/)
+    .map((n) => Number(n) * scale)
+    .join(' ')
 }
 
 export default function ProgressBar({ activeStation }) {
@@ -47,28 +59,30 @@ export default function ProgressBar({ activeStation }) {
   }, [activeConnections, total])
 
   return (
-    <div className="progress-bar-wrap" role="group" aria-label="Progreso del recorrido">
+    <div className="progress-bar-wrap" role="group" aria-label="Progreso del flujo">
       <div
         className="progress-bar progress-bar--metro"
         role="progressbar"
         aria-valuenow={Math.round(stationProgress * 100)}
         aria-valuemin={0}
         aria-valuemax={100}
-        aria-label={`Progreso: estación ${activeStation}`}
+        aria-label={`Progreso: paso ${activeStation}`}
       >
         <svg
           className="progress-bar__svg"
           viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
-          preserveAspectRatio="none"
+          preserveAspectRatio="xMidYMid meet"
+          shapeRendering="geometricPrecision"
           aria-hidden="true"
         >
-          <rect x={0} y={0} width={WIDTH} height={HEIGHT} rx={8} className="progress-bar__bg" />
+          <rect x={0} y={0} width={WIDTH} height={HEIGHT} rx={10} className="progress-bar__bg" />
 
           {segments.map((seg) => {
             const done = seg.i < activeIndex
             const current = seg.i === activeIndex
             const upcoming = seg.i > activeIndex
-            const dash = LINE_DASH[seg.linea]
+            const dash = dashForLine(seg.linea, 0.55)
+            const segmentW = seg.linea === 'shared' ? SHARED_W : SEGMENT_W
             const opacity = !seg.onRoute ? 0.15 : upcoming ? 0.55 : 1
 
             return (
@@ -79,8 +93,9 @@ export default function ProgressBar({ activeStation }) {
                   x2={seg.x2}
                   y2={Y}
                   className="progress-bar__casing"
-                  strokeWidth={9}
+                  strokeWidth={CASING_W}
                   strokeLinecap="round"
+                  vectorEffect="nonScalingStroke"
                 />
                 <line
                   x1={seg.x1}
@@ -89,9 +104,10 @@ export default function ProgressBar({ activeStation }) {
                   y2={Y}
                   className={`progress-bar__segment ${done ? 'progress-bar__segment--done' : ''} ${current ? 'progress-bar__segment--current' : ''}`}
                   stroke={done ? 'var(--line-active)' : lineVar(seg.linea)}
-                  strokeWidth={6}
+                  strokeWidth={segmentW}
                   strokeLinecap="round"
-                  strokeDasharray={done ? 'none' : dash || 'none'}
+                  strokeDasharray={done ? undefined : dash}
+                  vectorEffect="nonScalingStroke"
                 />
               </g>
             )
@@ -102,7 +118,7 @@ export default function ProgressBar({ activeStation }) {
             const onRoute = isStationActive(station.codigo)
             const done = i < activeIndex
             const current = station.codigo === activeStation
-            const r = current ? 5.5 : done ? 3.5 : 3
+            const r = current ? 6 : done ? 4 : 3.5
 
             return (
               <g
@@ -111,12 +127,7 @@ export default function ProgressBar({ activeStation }) {
                 opacity={onRoute ? 1 : 0.2}
               >
                 {current && (
-                  <circle
-                    cx={x}
-                    cy={Y}
-                    r={9}
-                    className="progress-bar__station-ring"
-                  />
+                  <circle cx={x} cy={Y} r={10} className="progress-bar__station-ring" />
                 )}
                 <circle
                   cx={x}
@@ -126,6 +137,7 @@ export default function ProgressBar({ activeStation }) {
                   fill={current ? 'var(--line-active)' : done ? 'var(--line-active)' : 'var(--metro-station-fill)'}
                   stroke={current ? 'var(--line-active)' : lineVar(station.linea)}
                   strokeWidth={current ? 0 : 2}
+                  vectorEffect="nonScalingStroke"
                 />
               </g>
             )

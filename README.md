@@ -1,6 +1,6 @@
 # Manual de Escaneo 3D · UCR Arquitectura
 
-Manual didáctico interactivo para estudiantes de la [Escuela de Arquitectura, Universidad de Costa Rica](https://arquis.ucr.ac.cr/). Guía el flujo completo de escaneo 3D con **SatLab SL9 SLAM RTK**: captura en campo, procesamiento de nube de puntos y modelado en **Rhino**, organizado como un **mapa de metro** con estaciones y rutas configurables.
+Manual didáctico interactivo para estudiantes de la [Escuela de Arquitectura, Universidad de Costa Rica](https://arquis.ucr.ac.cr/). Guía el flujo completo de escaneo 3D con **SatLab SL9 SLAM RTK**: captura en campo, procesamiento de nube de puntos y modelado en **Rhino**, organizado como un **mapa de flujos** con pasos y combinaciones configurables.
 
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 [![ISBN](https://img.shields.io/badge/ISBN-pendiente-orange)](./ISBN.md)
@@ -19,11 +19,11 @@ Manual didáctico interactivo para estudiantes de la [Escuela de Arquitectura, U
 
 ## Vista previa
 
-El manual usa una metáfora de red de transporte:
+El manual organiza el proceso como un mapa de flujos:
 
-- **19 estaciones** (V-01 … R-01) que representan cada paso del flujo
-- **Líneas** para RTK, SLAM, Sat-LiDAR y CloudCompare
-- **Planificador de ruta** según tipo de sitio (exterior / interior / ambos) y software de procesamiento
+- **19 pasos** (V-01 … R-01) que representan cada etapa del flujo
+- **Flujos** para RTK, SLAM, Sat-LiDAR y CloudCompare
+- **Planificador de flujo** según tipo de sitio (exterior / interior / ambos) y software de procesamiento
 - **Demos Three.js** para conceptos clave (nube de puntos, coordenadas, limpieza)
 - **Modo día / noche** y diseño responsive
 
@@ -57,9 +57,9 @@ El proyecto incluye [`netlify.toml`](./netlify.toml):
 
 ```
 src/
-├── components/     # UI: MetroMap, estaciones, footer, demos 3D
+├── components/     # UI: mapa de flujos, pasos, footer, demos 3D
 ├── context/        # Ruta activa y tema día/noche
-├── data/           # Estaciones, escáneres, glosario, publicación
+├── data/           # Pasos, escáneres, glosario, publicación
 └── hooks/          # Scroll y progreso
 public/
 └── img/            # Imágenes del manual y logos UCR/EAQ

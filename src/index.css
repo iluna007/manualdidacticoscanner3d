@@ -128,7 +128,7 @@ body {
   line-height: 1.65;
   font-size: 17px;
   -webkit-font-smoothing: antialiased;
-  padding-top: 52px;
+  padding-top: 56px;
   padding-bottom: env(safe-area-inset-bottom, 0);
 }
 
@@ -258,22 +258,24 @@ h4 {
   overflow: hidden;
   border: 1px solid var(--linea);
   background: var(--metro-bg);
+  display: flex;
+  justify-content: center;
+  padding: 12px;
 }
 
-.metro-map--featured {
-  min-height: clamp(320px, 52vw, 520px);
+.hero-map__canvas-wrap .metro-map,
+.metro-minimap-overlay .metro-map {
   width: 100%;
-  padding: 20px 12px;
+  max-width: 1000px;
+  max-height: 70vh;
+  min-height: clamp(300px, 50vh, 520px);
+}
+
+.hero-map__canvas-wrap .metro-map {
   border: none;
   background: transparent;
-}
-
-.metro-map--featured .metro-label {
-  font-size: 12px;
-}
-
-.metro-map--featured .metro-code {
-  font-size: 10px;
+  border-radius: 0;
+  padding: 8px 4px;
 }
 
 .hero-map__route {
@@ -326,6 +328,25 @@ h4 {
   background: var(--papel);
   border-radius: 10px;
   border: 1px solid var(--linea);
+  transition: background 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.metro-legend__item[tabindex='0'] {
+  cursor: pointer;
+}
+
+.metro-legend__item[tabindex='0']:hover,
+.metro-legend__item--active,
+.metro-legend__item:focus-visible {
+  background: var(--acento-suave);
+  border-color: var(--line-active);
+  outline: none;
+  box-shadow: 0 0 0 1px var(--line-active);
+}
+
+.legend-swatch--active line,
+.legend-swatch--active circle {
+  filter: drop-shadow(0 0 2px rgba(0, 0, 0, 0.18));
 }
 
 .legend-swatch {
@@ -1342,8 +1363,8 @@ footer {
 
 .progress-bar {
   position: relative;
-  height: 16px;
-  border-radius: 8px;
+  width: 100%;
+  border-radius: 10px;
   overflow: visible;
 }
 
@@ -1354,7 +1375,9 @@ footer {
 .progress-bar__svg {
   display: block;
   width: 100%;
-  height: 16px;
+  height: auto;
+  aspect-ratio: 1000 / 32;
+  max-height: 22px;
   overflow: visible;
 }
 
@@ -1364,6 +1387,10 @@ footer {
 
 .progress-bar__casing {
   stroke: var(--metro-casing);
+}
+
+.progress-bar__segment {
+  stroke-linecap: round;
 }
 
 .progress-bar__segment--current {
@@ -1389,8 +1416,8 @@ footer {
 }
 
 @keyframes progress-line-pulse {
-  0%, 100% { opacity: 1; stroke-width: 6; }
-  50% { opacity: 0.55; stroke-width: 7; }
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
 }
 
 @keyframes progress-ring-pulse {
@@ -1721,11 +1748,6 @@ footer {
   overflow-y: auto;
 }
 
-.metro-minimap-overlay .metro-map {
-  max-width: 1000px;
-  max-height: 70vh;
-}
-
 .metro-minimap-close {
   position: absolute;
   top: 16px;
@@ -1825,25 +1847,10 @@ footer {
   font-size: 9px;
 }
 
-.metro-map--featured .metro-line-group--rtk path:last-child {
-  stroke-width: 12;
-}
+/* legacy featured dash overrides removed — stroke via LINE_STROKE + nonScalingStroke */
 
-.metro-map--featured .metro-line-group--slam path:last-child {
-  stroke-dasharray: 20 12;
-}
-
-.metro-map--featured .metro-line-group--satlidar path:last-child {
-  stroke-dasharray: 8 8 24 8;
-}
-
-.metro-map--featured .metro-line-group--cloudcompare path:last-child {
-  stroke-dasharray: 3 10;
-}
-
-.metro-map--featured .metro-line-group--shared path:last-child {
-  stroke-dasharray: 32 10;
-  stroke-width: 14;
+.metro-map--highlighting .metro-line-group--highlighted path:last-child {
+  filter: url(#metro-glow);
 }
 
 .station-code {
@@ -2140,9 +2147,9 @@ footer {
     padding: 20px 14px 18px;
   }
 
-  .metro-map--featured {
-    min-height: 380px;
-    padding: 12px 6px;
+  .hero-map__canvas-wrap .metro-map {
+    min-height: 320px;
+    padding: 8px 4px;
   }
 
   .metro-legend {

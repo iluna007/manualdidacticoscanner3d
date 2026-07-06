@@ -21,7 +21,7 @@ abstract: >
   Manual didáctico interactivo para estudiantes de arquitectura de la UCR.
   Guía el flujo de trabajo de escaneo 3D con SatLab SL9 SLAM RTK: captura en
   campo, procesamiento de nube de puntos y modelado en Rhino, organizado como
-  un mapa de metro con estaciones y rutas configurables.
+  un mapa de flujos con pasos y combinaciones configurables.
 keywords:
   - escaneo-3d
   - arquitectura

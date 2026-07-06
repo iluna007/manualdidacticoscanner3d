@@ -8,7 +8,7 @@ export default function MetroStationContext({ codigo }) {
   return (
     <div
       className="metro-station-context"
-      aria-label={`Tramo del mapa: ${codigo} ${est.nombre}`}
+      aria-label={`Tramo del flujo: ${codigo} ${est.nombre}`}
     >
       <MetroMap contextStation={codigo} estacionActiva={codigo} />
     </div>

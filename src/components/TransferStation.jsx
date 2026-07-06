@@ -13,7 +13,7 @@ export default function TransferStation({ estacion }) {
       style={{ '--line-color': color }}
     >
       <div className="wrap station-inner">
-        <div className="transfer-badge mono">◉ TRANSBORDO</div>
+        <div className="transfer-badge mono">◉ BIFURCACIÓN</div>
         <div className="station-header">
           <div className="station-header__main">
             <span className="station-code mono">{estacion.codigo}</span>
@@ -55,14 +55,14 @@ export default function TransferStation({ estacion }) {
                 className="transfer-route-btn satlidar"
                 onClick={() => setProcessing('satlidar')}
               >
-                Elegir ruta naranja
+                Elegir flujo Sat-LiDAR
               </button>
               <button
                 type="button"
                 className="transfer-route-btn cloudcompare"
                 onClick={() => setProcessing('cloudcompare')}
               >
-                Elegir ruta morada
+                Elegir flujo CloudCompare
               </button>
             </div>
           </div>

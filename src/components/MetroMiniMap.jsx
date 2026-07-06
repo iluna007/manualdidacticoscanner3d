@@ -6,11 +6,11 @@ export default function MetroMiniMap({ estacionActiva, onStationClick, onOpenPla
 
   if (expanded) {
     return (
-      <div className="metro-minimap-overlay" role="dialog" aria-label="Mapa expandido">
+      <div className="metro-minimap-overlay" role="dialog" aria-label="Mapa de flujos expandido">
         <button
           type="button"
           className="metro-minimap-close"
-          aria-label="Cerrar mapa expandido"
+          aria-label="Cerrar mapa de flujos"
           onClick={() => setExpanded(false)}
         >
           ✕
@@ -23,7 +23,7 @@ export default function MetroMiniMap({ estacionActiva, onStationClick, onOpenPla
           }}
         />
         <button type="button" className="metro-minimap-planner" onClick={onOpenPlanner}>
-          Cambiar ruta
+          Cambiar flujo
         </button>
       </div>
     )
@@ -33,7 +33,7 @@ export default function MetroMiniMap({ estacionActiva, onStationClick, onOpenPla
     <button
       type="button"
       className="metro-minimap metro-minimap--pulse"
-      aria-label={`Minimapa del recorrido. Estación actual: ${estacionActiva}. Clic para expandir.`}
+      aria-label={`Minimapa del flujo. Paso actual: ${estacionActiva}. Clic para expandir.`}
       onClick={() => setExpanded(true)}
     >
       <MetroMap
