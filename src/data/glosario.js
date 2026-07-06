@@ -1,0 +1,17 @@
+export const glosario = [
+  { term: 'RTK', def: 'GPS con correcciones en vivo que baja el error de metros a centímetros. Como cuando la estación total ya está estacionada.' },
+  { term: 'SLAM', def: 'El escáner se ubica solo comparando lo que ve con el láser, sin satélites. Funciona en interiores.' },
+  { term: 'FIX / FLOTANTE', def: 'Estados del RTK. FIX = solución precisa (¡a trabajar!). Flotante = aún calculando (esperá bajo cielo abierto).' },
+  { term: 'NTRIP', def: 'Correcciones RTK por internet (SIM o Wi-Fi) desde una red de estaciones base.' },
+  { term: 'Nube de puntos', def: 'Millones de puntos 3D que forman una "fotografía tridimensional" del sitio — como un levantamiento fotogramétrico pero en 3D real.' },
+  { term: 'Georreferenciado', def: 'Coordenadas del mundo real (ej. CRTM05 en Costa Rica), no un cero arbitrario.' },
+  { term: 'NEZ / BLH', def: 'Norte-Este-Elevación (plano) o Latitud-Longitud-Altura (geográfico).' },
+  { term: 'E57 / LAS', def: 'Formatos estándar para intercambiar nubes entre programas.' },
+  { term: 'IMU', def: 'Sensor de movimiento interno que ayuda al SLAM a saber cómo se mueve el equipo.' },
+  { term: 'CloudCompare', def: 'Software gratuito y open source para limpiar, alinear y convertir nubes de puntos.' },
+  { term: 'SOR', def: 'Statistical Outlier Removal — filtro que elimina puntos dispersos que no pertenecen a la superficie real.' },
+  { term: 'Submuestreo', def: 'Reducir la cantidad de puntos manteniendo la forma. Más puntos no siempre significa mejor modelo.' },
+  { term: 'Segmentación', def: 'Seleccionar y aislar (o borrar) una porción de la nube con herramientas de tijera.' },
+  { term: 'Punto de control', def: 'Punto físico medido con precisión que sirve para alinear o georreferenciar un escaneo local.' },
+  { term: 'CRTM05', def: 'Sistema de coordenadas oficial de Costa Rica (proyección transversa de Mercator).' },
+]

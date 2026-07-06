@@ -1,0 +1,84 @@
+import { LINE_COLORS } from '../data/scanners'
+import { useRoute } from '../context/RouteContext'
+
+export default function TransferStation({ estacion }) {
+  const { setProcessing } = useRoute()
+  const color = LINE_COLORS.transbordo
+
+  return (
+    <section
+      id={`station-${estacion.codigo}`}
+      className="station transfer-station"
+      style={{ '--line-color': color }}
+    >
+      <div className="wrap station-inner">
+        <div className="transfer-badge mono">◉ TRANSBORDO</div>
+        <div className="station-header">
+          <span className="station-code mono">{estacion.codigo}</span>
+          <h2 className="station-title">{estacion.nombre}</h2>
+          <p className="station-resumen">{estacion.resumen}</p>
+        </div>
+
+        <div className="station-body">
+          <p>{estacion.cuerpo}</p>
+        </div>
+
+        {estacion.tip && <div className="station-tip">{estacion.tip}</div>}
+
+        {estacion.comparativa && (
+          <div className="table-wrap">
+            <table className="comparativa-table">
+              <thead>
+                <tr>
+                  <th></th>
+                  <th style={{ color: LINE_COLORS.satlidar }}>🟠 Sat-LiDAR</th>
+                  <th style={{ color: LINE_COLORS.cloudcompare }}>🟣 CloudCompare</th>
+                </tr>
+              </thead>
+              <tbody>
+                {estacion.comparativa.map((row) => (
+                  <tr key={row.aspecto}>
+                    <td>{row.aspecto}</td>
+                    <td>{row.satlidar}</td>
+                    <td>{row.cloudcompare}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <div className="transfer-actions">
+              <button
+                type="button"
+                className="transfer-route-btn satlidar"
+                onClick={() => setProcessing('satlidar')}
+              >
+                Elegir ruta naranja
+              </button>
+              <button
+                type="button"
+                className="transfer-route-btn cloudcompare"
+                onClick={() => setProcessing('cloudcompare')}
+              >
+                Elegir ruta morada
+              </button>
+            </div>
+          </div>
+        )}
+
+        {estacion.formatos && (
+          <div className="formatos-grid">
+            {estacion.formatos.map((f) => (
+              <div key={f.nombre} className="card">
+                <span className="mono tag o">{f.nombre}</span>
+                <p>{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {estacion.errorNovato && (
+          <div className="station-error">⚠️ Error de novato: {estacion.errorNovato}</div>
+        )}
+      </div>
+    </section>
+  )
+}
