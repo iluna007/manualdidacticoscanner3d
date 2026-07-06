@@ -50,26 +50,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        <div className="site-footer__meta">
-          <h2 className="site-footer__heading">Enlaces</h2>
-          <ul className="site-footer__link-list">
-            <li>
-              <FooterLink href={links.school} icon="school" label="Escuela de Arquitectura UCR" />
-            </li>
-            <li>
-              <FooterLink href={links.github} icon="repo" label="Repositorio en GitHub" />
-            </li>
-            <li>
-              <FooterLink href="https://ikerluna.netlify.app/" icon="portfolio" label="Portfolio · Iker Luna" />
-            </li>
-            <li>
-              <FooterLink href="https://ikercv.netlify.app/" icon="cv" label="CV · Iker Luna" />
-            </li>
-            <li>
-              <FooterLink href="https://github.com/iluna007" icon="github" label="GitHub · iluna007" />
-            </li>
-          </ul>
-        </div>
+        
 
         <div className="site-footer__cite">
           <h2 className="site-footer__heading">Cita académica</h2>
