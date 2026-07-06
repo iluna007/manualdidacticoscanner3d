@@ -28,7 +28,7 @@ export const scanners = {
       puente: '/img/slam-fix-puente.jpg',
       portatil: '/img/modo-portatil.jpg',
       vara: '/img/modo-vara.jpg',
-      satsurv: '/img/software-satsurv.jpg',
+      satsurv: '/img/hi-survey-wifi.jpg',
       satlidar: '/img/software-satlidar.jpg',
       volumen: '/img/volumen-coordenadas.jpg',
       aplicaciones: '/img/aplicaciones.jpg',

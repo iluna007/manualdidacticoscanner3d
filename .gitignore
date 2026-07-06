@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Assets pesados / solo desarrollo local
+public/img/manual/
+public/models/lidar-sensor-import/
+public/models/sl9-model.glb
+public/models/sl9-model-showcase.glb
+public/models/lidar-sensor.raw.glb
+public/models/lidar-sensor-web.glb
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

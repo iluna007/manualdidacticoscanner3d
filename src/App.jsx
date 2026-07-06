@@ -8,6 +8,7 @@ import { useScrollProgress } from './hooks/useScrollProgress'
 import Header from './components/Header'
 import HeroMapSection from './components/HeroMapSection'
 import IntroSection from './components/IntroSection'
+import ScannerShowcaseSection from './components/ScannerShowcaseSection'
 import PlanificarViaje from './components/PlanificarViaje'
 import MetroMiniMap from './components/MetroMiniMap'
 import Station from './components/Station'
@@ -81,6 +82,7 @@ function ManualContent() {
       />
 
       <IntroSection />
+      <ScannerShowcaseSection />
       <div ref={plannerRef}>
         <PlanificarViaje />
       </div>

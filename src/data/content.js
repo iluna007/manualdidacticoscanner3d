@@ -1,4 +1,5 @@
 export const navLinks = [
+  { href: '#equipo', label: 'Equipo' },
   { href: '#basico', label: 'Lo básico' },
   { href: '#decidir', label: '¿Con o sin RTK?' },
   { href: '#con-rtk', label: 'Flujo con RTK' },

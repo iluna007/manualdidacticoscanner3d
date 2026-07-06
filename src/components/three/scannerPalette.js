@@ -1,0 +1,58 @@
+/** Paletas 3D por tema del sitio — un solo modelo FBX, materiales distintos por modo. */
+export const SCANNER_PALETTES = {
+  day: {
+    bg: '#ddd9d2',
+    body: '#8f949c',
+    shade: '#656b75',
+    grip: '#3a3f47',
+    lens: '#2e5e8c',
+    accent: '#4a4f57',
+    ambient: 0.42,
+    key: 1.35,
+    fill: 0.28,
+    rim: 0.18,
+    hemiSky: '#f0eeea',
+    hemiGround: '#8a8580',
+    shadow: 0.22,
+    highlightRing: '#d49200',
+    highlightFill: '#ffcc33',
+  },
+  night: {
+    bg: '#0e1014',
+    body: '#b4b9c4',
+    shade: '#8d93a0',
+    grip: '#5a6170',
+    lens: '#5b8ec4',
+    accent: '#7a8190',
+    ambient: 0.32,
+    key: 1.05,
+    fill: 0.22,
+    rim: 0.35,
+    hemiSky: '#3a4250',
+    hemiGround: '#0a0c10',
+    shadow: 0.38,
+    highlightRing: '#ffc107',
+    highlightFill: '#ffe566',
+  },
+  color: {
+    bg: '#ebe6dc',
+    body: '#a8a39a',
+    shade: '#6e675c',
+    grip: '#3e3a35',
+    lens: '#e8641b',
+    accent: '#3e7c4f',
+    ambient: 0.44,
+    key: 1.28,
+    fill: 0.3,
+    rim: 0.2,
+    hemiSky: '#f5f0e6',
+    hemiGround: '#9a9084',
+    shadow: 0.24,
+    highlightRing: '#e8641b',
+    highlightFill: '#ff9a4d',
+  },
+}
+
+export function getScannerPalette(theme) {
+  return SCANNER_PALETTES[theme] ?? SCANNER_PALETTES.day
+}

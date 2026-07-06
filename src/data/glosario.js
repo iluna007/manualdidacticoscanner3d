@@ -1,6 +1,8 @@
 export const glosario = [
   { term: 'RTK', def: 'GPS con correcciones en vivo que baja el error de metros a centímetros. Como cuando la estación total ya está estacionada.' },
   { term: 'SLAM', def: 'El escáner se ubica solo comparando lo que ve con el láser, sin satélites. Funciona en interiores.' },
+  { term: 'SLAM-Fix', def: 'Tecnología del SL9 que combina RTK y SLAM automáticamente: si perdés señal satelital al entrar a un techo o bosque, el SLAM toma el control sin que hagas nada. La nube sale en coordenadas reales sin puntos de control.' },
+  { term: 'IP54', def: 'Nivel de protección del SL9: resistente a polvo y salpicaduras. No sumergir. Limpiá radar y lentes con paño suave seco.' },
   { term: 'FIX / FLOTANTE', def: 'Estados del RTK. FIX = solución precisa (¡a trabajar!). Flotante = aún calculando (esperá bajo cielo abierto).' },
   { term: 'NTRIP', def: 'Correcciones RTK por internet (SIM o Wi-Fi) desde una red de estaciones base.' },
   { term: 'Nube de puntos', def: 'Millones de puntos 3D que forman una "fotografía tridimensional" del sitio — como un levantamiento fotogramétrico pero en 3D real.' },

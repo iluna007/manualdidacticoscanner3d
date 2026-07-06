@@ -25,7 +25,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "model:export": "node scripts/fbx-to-glb.mjs",
+    "model:optimize": "npx @gltf-transform/cli optimize public/models/lidar-sensor.raw.glb public/models/lidar-sensor.glb --compress draco --simplify 0.35"
   },
   "dependencies": {
     "@react-three/drei": "^10.0.7",
