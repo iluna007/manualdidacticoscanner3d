@@ -52,12 +52,14 @@ function Swatch({ linea, style }) {
           strokeLinecap="round"
           strokeDasharray={
             style === 'dashed'
-              ? '10 6'
+              ? '20 12'
               : style === 'dashdot'
-                ? '4 4 12 4'
+                ? '8 8 24 8'
                 : style === 'dotted'
-                  ? '2 6'
-                  : 'none'
+                  ? '3 10'
+                  : style === 'solid-thick'
+                    ? '32 10'
+                    : 'none'
           }
         />
       )}

@@ -1,5 +1,6 @@
 import { LINE_COLORS } from '../data/scanners'
 import { useRoute } from '../context/RouteContext'
+import MetroStationContext from './MetroStationContext'
 
 export default function TransferStation({ estacion }) {
   const { setProcessing } = useRoute()
@@ -14,9 +15,12 @@ export default function TransferStation({ estacion }) {
       <div className="wrap station-inner">
         <div className="transfer-badge mono">◉ TRANSBORDO</div>
         <div className="station-header">
-          <span className="station-code mono">{estacion.codigo}</span>
-          <h2 className="station-title">{estacion.nombre}</h2>
-          <p className="station-resumen">{estacion.resumen}</p>
+          <div className="station-header__main">
+            <span className="station-code mono">{estacion.codigo}</span>
+            <h2 className="station-title">{estacion.nombre}</h2>
+            <p className="station-resumen">{estacion.resumen}</p>
+          </div>
+          <MetroStationContext codigo={estacion.codigo} />
         </div>
 
         <div className="station-body">

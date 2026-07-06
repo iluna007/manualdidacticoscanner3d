@@ -32,8 +32,8 @@ export default function MetroMiniMap({ estacionActiva, onStationClick, onOpenPla
   return (
     <button
       type="button"
-      className="metro-minimap"
-      aria-label="Minimapa del recorrido. Clic para expandir."
+      className="metro-minimap metro-minimap--pulse"
+      aria-label={`Minimapa del recorrido. Estación actual: ${estacionActiva}. Clic para expandir.`}
       onClick={() => setExpanded(true)}
     >
       <MetroMap

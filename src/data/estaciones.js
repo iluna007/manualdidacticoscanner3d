@@ -445,3 +445,50 @@ export function getEstacionByCodigo(codigo) {
 export function getEstacionIndex(codigo) {
   return estaciones.findIndex((e) => e.codigo === codigo)
 }
+
+const LINE_PRIORITY = ['rtk', 'slam', 'satlidar', 'cloudcompare', 'shared', 'transbordo']
+
+function pickConnection(list, linea) {
+  if (!list.length) return null
+  const sameLine = list.find((c) => c.linea === linea)
+  if (sameLine) return sameLine
+  return [...list].sort(
+    (a, b) => LINE_PRIORITY.indexOf(a.linea) - LINE_PRIORITY.indexOf(b.linea),
+  )[0]
+}
+
+export function getStationContext(codigo, activeConnections) {
+  const est = getEstacionByCodigo(codigo)
+  const incoming = activeConnections.filter((c) => c.to === codigo)
+  const outgoing = activeConnections.filter((c) => c.from === codigo)
+  const inConn = pickConnection(incoming, est?.linea)
+  const outConn = pickConnection(outgoing, est?.linea)
+  const prev = inConn?.from ?? null
+  const next = outConn?.to ?? null
+  const codes = [prev, codigo, next].filter(Boolean)
+  const segmentConnections = activeConnections.filter(
+    (c) => codes.includes(c.from) && codes.includes(c.to),
+  )
+
+  return { prev, next, codes, segmentConnections }
+}
+
+export function getContextViewBox(codes, mobile = false, padding = 72) {
+  const positions = getPositions(mobile)
+  const pts = codes.map((c) => positions[c]).filter(Boolean)
+  if (!pts.length) return { ...getViewBox(mobile), x: 0, y: 0 }
+
+  const xs = pts.map((p) => p.x)
+  const ys = pts.map((p) => p.y)
+  const minX = Math.min(...xs) - padding
+  const minY = Math.min(...ys) - padding
+  const maxX = Math.max(...xs) + padding
+  const maxY = Math.max(...ys) + padding
+
+  return {
+    x: minX,
+    y: minY,
+    width: maxX - minX,
+    height: maxY - minY,
+  }
+}

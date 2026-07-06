@@ -49,9 +49,18 @@ export const LINE_LABELS = {
 
 export const LINE_DASH = {
   rtk: null,
-  slam: '14 7',
-  satlidar: '5 5 14 5',
-  cloudcompare: '3 7',
-  shared: null,
+  slam: '20 12',
+  satlidar: '8 8 24 8',
+  cloudcompare: '3 10',
+  shared: '32 10',
   transbordo: null,
+}
+
+export const LINE_WEIGHT = {
+  rtk: 1.05,
+  slam: 1,
+  satlidar: 0.95,
+  cloudcompare: 0.88,
+  shared: 1.2,
+  transbordo: 1,
 }

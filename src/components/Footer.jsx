@@ -1,4 +1,5 @@
 import { publication } from '../data/publication'
+import { FooterIcon, FooterLink } from './FooterIcons'
 
 function AuthorLinks({ author }) {
   const { portfolio, cv, github } = author.links ?? {}
@@ -7,19 +8,11 @@ function AuthorLinks({ author }) {
   return (
     <span className="site-footer__author-links">
       {portfolio && (
-        <a href={portfolio} target="_blank" rel="noopener noreferrer">
-          Portfolio
-        </a>
+        <FooterLink href={portfolio} icon="portfolio" label={`Portfolio de ${author.name}`} />
       )}
-      {cv && (
-        <a href={cv} target="_blank" rel="noopener noreferrer">
-          CV
-        </a>
-      )}
+      {cv && <FooterLink href={cv} icon="cv" label={`CV de ${author.name}`} />}
       {github && (
-        <a href={github} target="_blank" rel="noopener noreferrer">
-          GitHub
-        </a>
+        <FooterLink href={github} icon="github" label={`GitHub de ${author.name}`} />
       )}
     </span>
   )
@@ -61,29 +54,19 @@ export default function Footer() {
           <h2 className="site-footer__heading">Enlaces</h2>
           <ul className="site-footer__link-list">
             <li>
-              <a href={links.school} target="_blank" rel="noopener noreferrer">
-                Escuela de Arquitectura
-              </a>
+              <FooterLink href={links.school} icon="school" label="Escuela de Arquitectura UCR" />
             </li>
             <li>
-              <a href={links.github} target="_blank" rel="noopener noreferrer">
-                Repositorio en GitHub
-              </a>
+              <FooterLink href={links.github} icon="repo" label="Repositorio en GitHub" />
             </li>
             <li>
-              <a href="https://ikerluna.netlify.app/" target="_blank" rel="noopener noreferrer">
-                Portfolio · Iker Luna
-              </a>
+              <FooterLink href="https://ikerluna.netlify.app/" icon="portfolio" label="Portfolio · Iker Luna" />
             </li>
             <li>
-              <a href="https://ikercv.netlify.app/" target="_blank" rel="noopener noreferrer">
-                CV · Iker Luna
-              </a>
+              <FooterLink href="https://ikercv.netlify.app/" icon="cv" label="CV · Iker Luna" />
             </li>
             <li>
-              <a href="https://github.com/iluna007" target="_blank" rel="noopener noreferrer">
-                GitHub · iluna007
-              </a>
+              <FooterLink href="https://github.com/iluna007" icon="github" label="GitHub · iluna007" />
             </li>
           </ul>
         </div>
@@ -98,8 +81,16 @@ export default function Footer() {
           </blockquote>
           <p className="site-footer__license">
             © {year} · Licencia{' '}
-            <a href="https://creativecommons.org/licenses/by-nc/4.0/deed.es" target="_blank" rel="noopener noreferrer">
-              {license}
+            <a
+              href="https://creativecommons.org/licenses/by-nc/4.0/deed.es"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="site-footer__link site-footer__link--icon-only"
+              aria-label={`Licencia ${license}`}
+              title={`Licencia ${license}`}
+            >
+              <FooterIcon name="cc" />
+              <span className="visually-hidden">{license}</span>
             </a>
           </p>
         </div>
