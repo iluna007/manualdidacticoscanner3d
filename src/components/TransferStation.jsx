@@ -31,8 +31,8 @@ export default function TransferStation({ estacion }) {
               <thead>
                 <tr>
                   <th></th>
-                  <th style={{ color: LINE_COLORS.satlidar }}>🟠 Sat-LiDAR</th>
-                  <th style={{ color: LINE_COLORS.cloudcompare }}>🟣 CloudCompare</th>
+                  <th>Sat-LiDAR</th>
+                  <th>CloudCompare</th>
                 </tr>
               </thead>
               <tbody>

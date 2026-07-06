@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+title: "Manual de Escaneo 3D: Del sitio al modelo con SL9 SLAM RTK"
+message: "Si utilizás este manual en tu trabajo académico, por favor citálo así:"
+type: software
+authors:
+  - family-names: Luna
+    given-names: Iker
+    affiliation: "Escuela de Arquitectura, Universidad de Costa Rica"
+  - family-names: Barrante
+    given-names: Felipe
+    affiliation: "Escuela de Arquitectura, Universidad de Costa Rica"
+  - family-names: Esquivel
+    given-names: María
+    affiliation: "Escuela de Arquitectura, Universidad de Costa Rica"
+version: 1.0.0
+date-released: 2026-07-06
+license: CC-BY-NC-4.0
+repository-code: "https://github.com/iluna007/manualdidacticoscanner3d"
+url: "https://github.com/iluna007/manualdidacticoscanner3d"
+abstract: >
+  Manual didáctico interactivo para estudiantes de arquitectura de la UCR.
+  Guía el flujo de trabajo de escaneo 3D con SatLab SL9 SLAM RTK: captura en
+  campo, procesamiento de nube de puntos y modelado en Rhino, organizado como
+  un mapa de metro con estaciones y rutas configurables.
+keywords:
+  - escaneo-3d
+  - arquitectura
+  - ucr
+  - slam
+  - rtk
+  - rhino
+  - educacion
+  - isbn
+identifiers:
+  - type: other
+    value: "ISBN pendiente de registro — ver ISBN.md"
+    description: "Solicitar ISBN institucional antes de publicar impresión o depósito formal"

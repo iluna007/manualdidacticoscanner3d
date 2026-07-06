@@ -3,8 +3,8 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
-const RTK_COLOR = '#3E7C4F'
-const SLAM_COLOR = '#2E5E8C'
+const RTK_COLOR = '#1a1a1a'
+const SLAM_COLOR = '#666666'
 
 function House({ color = '#CFC9BD' }) {
   return (
@@ -38,7 +38,7 @@ function GridLabels({ mode, animateJoin }) {
         <House />
         <mesh position={[3, 0.75, 1]} rotation={[0, 0.4, 0]}>
           <boxGeometry args={[1.5, 1.5, 1.5]} />
-          <meshStandardMaterial color="#3E7C4F" transparent opacity={0.35} />
+          <meshStandardMaterial color="#1a1a1a" transparent opacity={0.35} />
         </mesh>
       </group>
     )
@@ -46,14 +46,14 @@ function GridLabels({ mode, animateJoin }) {
 
   return (
     <group>
-      <House color="#7BA4C4" />
+      <House color="#999999" />
       <mesh ref={ghostRef} position={[4, 0.75, 2]}>
         <boxGeometry args={[2, 1.5, 2]} />
         <meshStandardMaterial color={RTK_COLOR} transparent opacity={0.5} />
       </mesh>
       <mesh position={[0, 0.01, 0]}>
         <boxGeometry args={[0.15, 0.15, 0.15]} />
-        <meshStandardMaterial color="#E8641B" />
+        <meshStandardMaterial color="#333333" />
       </mesh>
     </group>
   )

@@ -7,8 +7,8 @@ const POINTS_PER_FRAME = 150
 const SCAN_RADIUS = 6
 const CYCLE_DURATION = 20
 
-const RTK_COLOR = new THREE.Color('#3E7C4F')
-const SLAM_COLOR = new THREE.Color('#2E5E8C')
+const RTK_COLOR = new THREE.Color('#1a1a1a')
+const SLAM_COLOR = new THREE.Color('#666666')
 
 const ROOM = { xMin: -8, xMax: 8, zMin: -8, zMax: 8, y: 0, wallH: 4 }
 const DOOR_X = 0
@@ -244,7 +244,7 @@ const ScanScene = forwardRef(function ScanScene({ paused, onModeChange }, ref) {
       </points>
       <mesh ref={scannerRef} rotation={[0, 0, Math.PI]}>
         <coneGeometry args={[0.35, 0.8, 8]} />
-        <meshStandardMaterial color="#E8641B" emissive="#E8641B" emissiveIntensity={0.3} />
+        <meshStandardMaterial color="#333333" emissive="#333333" emissiveIntensity={0.2} />
       </mesh>
     </>
   )

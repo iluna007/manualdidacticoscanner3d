@@ -1,7 +1,26 @@
 {
-  "name": "scanner3dguiadidacticaucr",
+  "name": "manualdidacticoscanner3d",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Manual didáctico de escaneo 3D para la Escuela de Arquitectura UCR (SL9 SLAM RTK → Rhino)",
+  "author": "Iker Luna, Felipe Barrante, María Esquivel",
+  "license": "CC-BY-NC-4.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iluna007/manualdidacticoscanner3d.git"
+  },
+  "homepage": "https://github.com/iluna007/manualdidacticoscanner3d#readme",
+  "keywords": [
+    "isbn",
+    "3d-scanning",
+    "architecture-education",
+    "ucr",
+    "slam",
+    "point-cloud",
+    "rhino",
+    "react",
+    "threejs"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -18,6 +37,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.5.0",
-    "vite": "^8.1.1"
+    "vite": "^7.3.6"
   }
 }

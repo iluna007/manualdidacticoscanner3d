@@ -1,15 +1,15 @@
 import { useRoute } from '../context/RouteContext'
 
 const LOCATIONS = [
-  { id: 'exterior', label: '🌤️ Exterior', desc: 'Línea verde · RTK' },
-  { id: 'interior', label: '🏠 Interior', desc: 'Línea azul · SLAM' },
-  { id: 'ambos', label: '🔄 Ambos', desc: 'Las dos líneas' },
+  { id: 'exterior', label: 'Exterior', desc: 'Línea A · RTK' },
+  { id: 'interior', label: 'Interior', desc: 'Línea B · SLAM' },
+  { id: 'ambos', label: 'Ambos', desc: 'Las dos líneas' },
 ]
 
 const PROCESSING = [
-  { id: 'satlidar', label: '🟠 Software del equipo', desc: 'Sat-LiDAR' },
-  { id: 'cloudcompare', label: '🟣 CloudCompare', desc: 'Gratis · recomendado' },
-  { id: 'unsure', label: '🤷 Aún no sé', desc: 'Mostrar todo' },
+  { id: 'satlidar', label: 'Software del equipo', desc: 'Sat-LiDAR' },
+  { id: 'cloudcompare', label: 'CloudCompare', desc: 'Gratis · recomendado' },
+  { id: 'unsure', label: 'Aún no sé', desc: 'Mostrar todo' },
 ]
 
 export default function PlanificarViaje({ id = 'planificar' }) {

@@ -31,9 +31,9 @@ function generateFacadePoints() {
     positions[i * 3] = (Math.random() - 0.5) * 10
     positions[i * 3 + 1] = Math.random() * 5
     positions[i * 3 + 2] = (Math.random() - 0.5) * 6
-    colors[i * 3] = 0.9
-    colors[i * 3 + 1] = 0.3
-    colors[i * 3 + 2] = 0.3
+      colors[i * 3] = 0.5 + Math.random() * 0.2
+      colors[i * 3 + 1] = 0.5 + Math.random() * 0.2
+      colors[i * 3 + 2] = 0.5 + Math.random() * 0.2
     types[i] = 1
   }
 

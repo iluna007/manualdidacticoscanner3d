@@ -24,7 +24,7 @@ export const conexiones = [
   { from: 'T-02', to: 'R-01', linea: 'shared' },
 ]
 
-const pos = {
+export const posDesktop = {
   'V-01': { x: 60, y: 100 },
   'V-02': { x: 180, y: 100 },
   'V-03': { x: 300, y: 100 },
@@ -46,6 +46,59 @@ const pos = {
   'R-01': { x: 980, y: 650 },
 }
 
+export const posMobile = {
+  'V-01': { x: 100, y: 50 },
+  'V-02': { x: 100, y: 110 },
+  'V-03': { x: 100, y: 170 },
+  'V-04': { x: 100, y: 230 },
+  'V-05': { x: 100, y: 290 },
+  'V-06': { x: 100, y: 350 },
+  'A-01': { x: 300, y: 50 },
+  'A-02': { x: 300, y: 110 },
+  'A-03': { x: 300, y: 170 },
+  'A-04': { x: 300, y: 230 },
+  'A-05': { x: 300, y: 290 },
+  'T-01': { x: 200, y: 430 },
+  'N-01': { x: 320, y: 530 },
+  'N-02': { x: 320, y: 590 },
+  'M-01': { x: 80, y: 530 },
+  'M-02': { x: 80, y: 590 },
+  'M-03': { x: 80, y: 650 },
+  'T-02': { x: 200, y: 730 },
+  'R-01': { x: 200, y: 810 },
+}
+
+export const VIEWBOX = { width: 1100, height: 720 }
+export const VIEWBOX_MOBILE = { width: 400, height: 880 }
+
+export function getPositions(mobile) {
+  return mobile ? posMobile : posDesktop
+}
+
+export function getViewBox(mobile) {
+  return mobile ? VIEWBOX_MOBILE : VIEWBOX
+}
+
+export function getPathD(from, to, mobile = false) {
+  const positions = getPositions(mobile)
+  const a = positions[from]
+  const b = positions[to]
+  if (!a || !b) return ''
+  const mx = (a.x + b.x) / 2
+  const my = (a.y + b.y) / 2
+
+  if (Math.abs(a.y - b.y) < 8) {
+    return `M ${a.x} ${a.y} L ${b.x} ${b.y}`
+  }
+  if (Math.abs(a.x - b.x) < 8) {
+    return `M ${a.x} ${a.y} L ${b.x} ${b.y}`
+  }
+  if (mobile) {
+    return `M ${a.x} ${a.y} L ${a.x} ${my} L ${b.x} ${my} L ${b.x} ${b.y}`
+  }
+  return `M ${a.x} ${a.y} L ${mx} ${a.y} L ${mx} ${b.y} L ${b.x} ${b.y}`
+}
+
 export const estaciones = [
   {
     codigo: 'V-01',
@@ -59,7 +112,7 @@ export const estaciones = [
     tiempo: '5 min',
     imagen: null,
     demo: null,
-    posicion: pos['V-01'],
+    posicion: posDesktop['V-01'],
   },
   {
     codigo: 'V-02',
@@ -74,7 +127,7 @@ export const estaciones = [
     imagen: '/img/software-satsurv.jpg',
     imagenAlt: 'Capturas de la app Satsurv con configuración de conexión',
     demo: null,
-    posicion: pos['V-02'],
+    posicion: posDesktop['V-02'],
   },
   {
     codigo: 'V-03',
@@ -89,7 +142,7 @@ export const estaciones = [
     imagen: '/img/campo-escaneo.jpg',
     imagenAlt: 'Operador escaneando ladera al aire libre con el SL9',
     demo: null,
-    posicion: pos['V-03'],
+    posicion: posDesktop['V-03'],
   },
   {
     codigo: 'V-04',
@@ -104,7 +157,7 @@ export const estaciones = [
     imagen: '/img/slam-fix-puente.jpg',
     imagenAlt: 'Escaneo bajo puente demostrando SLAM-Fix',
     demo: 'ScanDemo',
-    posicion: pos['V-04'],
+    posicion: posDesktop['V-04'],
   },
   {
     codigo: 'V-05',
@@ -118,7 +171,7 @@ export const estaciones = [
     tiempo: '5–15 min',
     imagen: null,
     demo: null,
-    posicion: pos['V-05'],
+    posicion: posDesktop['V-05'],
   },
   {
     codigo: 'V-06',
@@ -133,7 +186,7 @@ export const estaciones = [
     imagen: '/img/modo-vara.jpg',
     imagenAlt: 'Modo vara de centrado RTK con el SL9',
     demo: null,
-    posicion: pos['V-06'],
+    posicion: posDesktop['V-06'],
     resumenTramo: [
       'Preparar equipo y Satsurv',
       'Conectar NTRIP y lograr FIX',
@@ -154,7 +207,7 @@ export const estaciones = [
     tiempo: '5 min',
     imagen: null,
     demo: null,
-    posicion: pos['A-01'],
+    posicion: posDesktop['A-01'],
   },
   {
     codigo: 'A-02',
@@ -169,7 +222,7 @@ export const estaciones = [
     imagen: '/img/modo-portatil.jpg',
     imagenAlt: 'Operador escaneando en modo portátil de mano',
     demo: null,
-    posicion: pos['A-02'],
+    posicion: posDesktop['A-02'],
   },
   {
     codigo: 'A-03',
@@ -184,7 +237,7 @@ export const estaciones = [
     imagen: '/img/medicion-imagen.jpg',
     imagenAlt: 'Medición por imagen con el SL9',
     demo: null,
-    posicion: pos['A-03'],
+    posicion: posDesktop['A-03'],
   },
   {
     codigo: 'A-04',
@@ -198,7 +251,7 @@ export const estaciones = [
     tiempo: '5 min',
     imagen: null,
     demo: null,
-    posicion: pos['A-04'],
+    posicion: posDesktop['A-04'],
   },
   {
     codigo: 'A-05',
@@ -212,7 +265,7 @@ export const estaciones = [
     tiempo: '5 min',
     imagen: null,
     demo: 'CoordinateDemo',
-    posicion: pos['A-05'],
+    posicion: posDesktop['A-05'],
     resumenTramo: [
       'Preparar equipo (sin NTRIP)',
       'Elegir punto cero memorable',
@@ -233,7 +286,7 @@ export const estaciones = [
     tiempo: '5–10 min',
     imagen: null,
     demo: null,
-    posicion: pos['T-01'],
+    posicion: posDesktop['T-01'],
     comparativa: [
       { aspecto: 'Costo', satlidar: 'Licencia del equipo', cloudcompare: 'Gratis y open source ✅' },
       { aspecto: 'Fortaleza', satlidar: 'Optimización de trayectoria, <1 cm, secciones automáticas', cloudcompare: 'Limpieza, submuestreo, alineación, formatos universales' },
@@ -254,7 +307,7 @@ export const estaciones = [
     imagen: '/img/software-satlidar.jpg',
     imagenAlt: 'Interfaz de Sat-LiDAR con túnel y secciones',
     demo: null,
-    posicion: pos['N-01'],
+    posicion: posDesktop['N-01'],
   },
   {
     codigo: 'N-02',
@@ -268,7 +321,7 @@ export const estaciones = [
     tiempo: '5–15 min',
     imagen: null,
     demo: null,
-    posicion: pos['N-02'],
+    posicion: posDesktop['N-02'],
     resumenTramo: [
       'Importar nube cruda en Sat-LiDAR',
       'Optimizar trayectoria y limpiar',
@@ -287,7 +340,7 @@ export const estaciones = [
     tiempo: '5 min',
     imagen: null,
     demo: null,
-    posicion: pos['M-01'],
+    posicion: posDesktop['M-01'],
   },
   {
     codigo: 'M-02',
@@ -301,7 +354,7 @@ export const estaciones = [
     tiempo: '10–30 min',
     imagen: null,
     demo: 'CloudCleanDemo',
-    posicion: pos['M-02'],
+    posicion: posDesktop['M-02'],
   },
   {
     codigo: 'M-03',
@@ -315,7 +368,7 @@ export const estaciones = [
     tiempo: '5 min',
     imagen: null,
     demo: 'CloudCleanDemo',
-    posicion: pos['M-03'],
+    posicion: posDesktop['M-03'],
     resumenTramo: [
       'Importar y shift to local origin',
       'Segmentar y filtrar SOR',
@@ -334,7 +387,7 @@ export const estaciones = [
     tiempo: '2 min',
     imagen: null,
     demo: null,
-    posicion: pos['T-02'],
+    posicion: posDesktop['T-02'],
     formatos: [
       { nombre: 'E57', desc: 'Moderno, conserva color. Recomendado.' },
       { nombre: 'PTS / XYZ', desc: 'Texto universal, pero pesado.' },
@@ -354,7 +407,7 @@ export const estaciones = [
     imagen: '/img/volumen-coordenadas.jpg',
     imagenAlt: 'Cálculo de volumen y sistema de coordenadas',
     demo: null,
-    posicion: pos['R-01'],
+    posicion: posDesktop['R-01'],
     pasos: [
       { titulo: 'Importar', texto: 'Archivo → Importar E57/PTS/XYZ. LAS pesados: convertir antes en CloudCompare.' },
       { titulo: 'Verificar', texto: 'Documento en metros; comprobar medida conocida con Distance.' },
@@ -389,18 +442,6 @@ export function getEstacionByCodigo(codigo) {
   return estaciones.find((e) => e.codigo === codigo)
 }
 
-export function getPathD(from, to) {
-  const a = pos[from]
-  const b = pos[to]
-  if (!a || !b) return ''
-  const mx = (a.x + b.x) / 2
-  if (Math.abs(a.y - b.y) < 5) {
-    return `M ${a.x} ${a.y} L ${b.x} ${b.y}`
-  }
-  if (Math.abs(a.x - b.x) < 5) {
-    return `M ${a.x} ${a.y} L ${b.x} ${b.y}`
-  }
-  return `M ${a.x} ${a.y} L ${mx} ${a.y} L ${mx} ${b.y} L ${b.x} ${b.y}`
+export function getEstacionIndex(codigo) {
+  return estaciones.findIndex((e) => e.codigo === codigo)
 }
-
-export const VIEWBOX = { width: 1100, height: 720 }

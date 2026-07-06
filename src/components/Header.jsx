@@ -1,6 +1,8 @@
 import { scanners } from '../data/scanners'
 import { useRoute } from '../context/RouteContext'
 
+import ThemeToggle from './ThemeToggle'
+
 export default function Header() {
   const { scannerId, setScannerId } = useRoute()
   const scanner = scanners[scannerId]
@@ -13,6 +15,7 @@ export default function Header() {
           <h1 className="site-header__title">Manual de Escaneo 3D</h1>
         </div>
         <div className="site-header__controls">
+          <ThemeToggle className="site-header__theme" />
           <label className="scanner-select">
             <span className="mono">Equipo</span>
             <select

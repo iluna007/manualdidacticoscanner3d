@@ -28,20 +28,30 @@ export const scanners = {
   },
 }
 
+/** Paleta monocromática — cada línea usa un gris distinto para legibilidad */
 export const LINE_COLORS = {
-  rtk: '#3E7C4F',
-  slam: '#2E5E8C',
-  satlidar: '#E8641B',
-  cloudcompare: '#7B4B94',
-  shared: '#8A8578',
-  transbordo: '#26221C',
+  rtk: '#1a1a1a',
+  slam: '#3d3d3d',
+  satlidar: '#5c5c5c',
+  cloudcompare: '#7a7a7a',
+  shared: '#4a4a4a',
+  transbordo: '#0d0d0d',
 }
 
 export const LINE_LABELS = {
-  rtk: 'Línea Verde · RTK',
-  slam: 'Línea Azul · SLAM',
-  satlidar: 'Línea Naranja · Sat-LiDAR',
-  cloudcompare: 'Línea Morada · CloudCompare',
-  shared: 'Andén compartido',
-  transbordo: 'Transbordo',
+  rtk: 'Línea A · RTK (campo)',
+  slam: 'Línea B · SLAM (campo)',
+  satlidar: 'Línea C · Sat-LiDAR (oficina)',
+  cloudcompare: 'Línea D · CloudCompare (oficina)',
+  shared: 'Andén · Rhino',
+  transbordo: 'Transbordo ◉',
+}
+
+export const LINE_DASH = {
+  rtk: null,
+  slam: '14 7',
+  satlidar: '5 5 14 5',
+  cloudcompare: '3 7',
+  shared: null,
+  transbordo: null,
 }

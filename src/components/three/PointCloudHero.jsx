@@ -3,9 +3,9 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 import * as THREE from 'three'
 
-const LOW = '#2E5E8C'
-const MID = '#3E7C4F'
-const HIGH = '#E8641B'
+const LOW = '#888888'
+const MID = '#555555'
+const HIGH = '#1a1a1a'
 
 function lerpColor(t) {
   const low = new THREE.Color(LOW)

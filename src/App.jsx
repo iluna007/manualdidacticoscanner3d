@@ -2,26 +2,26 @@ import { useEffect, useState, useCallback, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { RouteProvider, useRoute } from './context/RouteContext'
+import { ThemeProvider } from './context/ThemeContext'
 import { estaciones } from './data/estaciones'
 import { useScrollProgress } from './hooks/useScrollProgress'
 import Header from './components/Header'
-import Hero from './components/Hero'
+import HeroMapSection from './components/HeroMapSection'
 import IntroSection from './components/IntroSection'
 import PlanificarViaje from './components/PlanificarViaje'
-import MetroMap from './components/MetroMap'
 import MetroMiniMap from './components/MetroMiniMap'
 import Station from './components/Station'
 import TransferStation from './components/TransferStation'
-import RouteBanner from './components/RouteBanner'
 import ProgressBar from './components/ProgressBar'
 import Glossary from './components/Glossary'
 import Checklist from './components/Checklist'
+import Footer from './components/Footer'
 
 gsap.registerPlugin(ScrollTrigger)
 
 function ManualContent() {
   const { scanLocation, processing, isStationActive } = useRoute()
-  const { activeStation, progress, scrollToStation } = useScrollProgress()
+  const { activeStation, scrollToStation } = useScrollProgress()
   const [expanded, setExpanded] = useState(() => new Set())
   const [mapDrawn, setMapDrawn] = useState(false)
   const plannerRef = useRef(null)
@@ -38,27 +38,13 @@ function ManualContent() {
 
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    if (reduced) {
-      setMapDrawn(true)
-      return
-    }
+    const drawTimer = setTimeout(() => setMapDrawn(true), reduced ? 0 : 400)
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#hero',
-        start: 'top top',
-        end: 'bottom top',
-        scrub: 1,
-      },
-    })
-    tl.to('.hero h1', { opacity: 0.3, y: -20 }, 0)
-
-    gsap.from('.metro-map-section', {
-      scrollTrigger: { trigger: '.metro-map-section', start: 'top 80%' },
+    gsap.from('.hero-map__canvas-wrap', {
       opacity: 0,
-      y: 30,
-      duration: 0.8,
-      onComplete: () => setMapDrawn(true),
+      y: reduced ? 0 : 20,
+      duration: reduced ? 0 : 0.8,
+      delay: 0.15,
     })
 
     const sections = gsap.utils.toArray('.station-section, .transfer-station')
@@ -75,38 +61,29 @@ function ManualContent() {
       })
     })
 
-    return () => ScrollTrigger.getAll().forEach((t) => t.kill())
+    return () => {
+      clearTimeout(drawTimer)
+      ScrollTrigger.getAll().forEach((t) => t.kill())
+    }
   }, [])
 
   const handlePrint = () => window.print()
 
   return (
     <>
-      <ProgressBar progress={progress} activeStation={activeStation} />
+      <ProgressBar activeStation={activeStation} />
       <Header />
-      <RouteBanner />
 
-      <Hero />
+      <HeroMapSection
+        activeStation={activeStation}
+        onStationClick={scrollToStation}
+        mapDrawn={mapDrawn}
+      />
+
       <IntroSection />
       <div ref={plannerRef}>
         <PlanificarViaje />
       </div>
-
-      <section className="metro-map-section" id="mapa">
-        <div className="wrap">
-          <div className="kicker">El mapa de la red</div>
-          <h2>Red de escaneo 3D · UCR Arquitectura</h2>
-          <p className="lead">
-            Cada línea es una modalidad; cada estación, un paso. Los transbordos son donde los
-            flujos convergen o bifurcan.
-          </p>
-          <MetroMap
-            estacionActiva={activeStation}
-            onStationClick={scrollToStation}
-            animateDraw={mapDrawn}
-          />
-        </div>
-      </section>
 
       <main className="stations-main">
         {estaciones.map((est) => {
@@ -131,13 +108,7 @@ function ManualContent() {
       <Glossary />
       <Checklist />
 
-      <footer>
-        <div className="wrap">
-          <span className="mono">Manual didáctico</span> · Escuela de Arquitectura, Universidad de
-          Costa Rica. Basado en la documentación del SatLab SL9 SLAM RTK. Las precisiones dependen
-          de las condiciones de operación.
-        </div>
-      </footer>
+      <Footer />
 
       <MetroMiniMap
         estacionActiva={activeStation}
@@ -154,8 +125,10 @@ function ManualContent() {
 
 export default function App() {
   return (
-    <RouteProvider>
-      <ManualContent />
-    </RouteProvider>
+    <ThemeProvider>
+      <RouteProvider>
+        <ManualContent />
+      </RouteProvider>
+    </ThemeProvider>
   )
 }
